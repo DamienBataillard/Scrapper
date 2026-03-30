@@ -1,0 +1,25 @@
+# ── Secrets ──────────────────────────────────
+.env
+
+# ── Données générées par le bot ──────────────
+seen_jobs.json
+job_hunter.log
+debug_html/
+
+# ── Python ───────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# ── VS Code ───────────────────────────────────
+.vscode/
+
+# ── OS ───────────────────────────────────────
+.DS_Store
+Thumbs.db
