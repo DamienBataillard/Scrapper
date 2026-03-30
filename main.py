@@ -45,6 +45,27 @@ def save_seen(seen: set):
     logger.debug(f"[Mémoire] {len(seen)} offres sauvegardées dans {SEEN_JOBS_FILE}")
 
 
+ANNONCES_FILE = "annonces.md"
+
+def save_annonces(new_jobs: list):
+    """Ajoute toutes les nouvelles offres dans annonces.md, peu importe le score."""
+    if not new_jobs:
+        return
+
+    # Crée le fichier avec un header s'il n'existe pas encore
+    if not os.path.exists(ANNONCES_FILE):
+        with open(ANNONCES_FILE, "w", encoding="utf-8") as f:
+            f.write("# 📋 Toutes les annonces trouvées\n\n")
+
+    with open(ANNONCES_FILE, "a", encoding="utf-8") as f:
+        f.write(f"\n## 🔍 Cycle du {datetime.now().strftime('%d/%m/%Y à %H:%M')}\n\n")
+        for job in new_jobs:
+            f.write(f"- **{job['title']}** — {job['company']} ({job['location']})\n")
+            f.write(f"  {job['url']}\n\n")
+
+    logger.info(f"📄 {len(new_jobs)} annonces sauvegardées dans {ANNONCES_FILE}")
+
+
 # ── Cycle principal ───────────────────────────────────────────────────────────
 def run_cycle():
     start_time = time.time()
@@ -117,6 +138,7 @@ def run_cycle():
     # ── Bilan ────────────────────────────────────────────────
     elapsed = round(time.time() - start_time, 1)
     save_seen(seen)
+    save_annonces(new_jobs)
 
     logger.info("=" * 60)
     logger.info(f"✅ CYCLE TERMINÉ en {elapsed}s")
