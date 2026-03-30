@@ -293,7 +293,6 @@ def fetch_all_jobs():
     scrapers = [
         ("FranceTravail", fetch_france_travail),
         ("WTTJ",          fetch_wttj),
-        ("HelloWork",     fetch_hellowork),
         ("LinkedIn",      fetch_linkedin),
     ]
     for name, fn in scrapers:

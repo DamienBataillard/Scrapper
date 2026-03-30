@@ -45,7 +45,11 @@ def send_to_discord(job: dict, analysis: dict) -> bool:
 
     embed = {
         "title":       f"{source_emoji} {job['title']}",
-        "description": f"{verdict_emoji} **{verdict}** — Score : **{score}/10**\n\n_{analysis.get('resume', '')}_",
+        "description": (
+            f"{verdict_emoji} **{verdict}** — Score : **{score}/10**\n\n"
+            f"_{analysis.get('resume', '')}_\n\n"
+            f"🔗 **[Voir l'annonce]({job['url']})**\n`{job['url']}`"
+        ),
         "color":       _color(score),
         "url":         job["url"],
         "fields": [

@@ -201,3 +201,10 @@
 2026-03-30 11:38:51,049 [INFO] 📬 0 nouvelles offres à analyser
 2026-03-30 11:38:51,348 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
 
+2026-03-30 11:51:16,176 [INFO] 🚀 Job Hunter Bot démarré !
+2026-03-30 11:51:16,176 [INFO] ⏱  Intervalle : toutes les 120 minutes
+2026-03-30 11:51:16,176 [INFO] ============================================================
+2026-03-30 11:51:16,176 [INFO] 🔍 Nouveau cycle — 30/03/2026 11:51
+2026-03-30 11:51:16,176 [INFO] ============================================================
+2026-03-30 11:51:16,474 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'développeur fullstack'
+2026-03-30 11:51:18,836 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'full stack javascript'
