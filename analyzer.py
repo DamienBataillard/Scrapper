@@ -1,88 +1,139 @@
 """
-analyzer.py — Envoie chaque offre à Claude pour obtenir un score et une analyse
+analyzer.py — Analyse des offres par filtrage mots-clés (sans API IA)
 """
 
-import json
 import logging
-import requests
-from config import ANTHROPIC_API_KEY, PROFILE, MIN_SCORE
+from config import PROFILE, MIN_SCORE
 
 logger = logging.getLogger(__name__)
 
-CLAUDE_URL = "https://api.anthropic.com/v1/messages"
-HEADERS = {
-    "x-api-key":         ANTHROPIC_API_KEY,
-    "anthropic-version": "2023-06-01",
-    "content-type":      "application/json",
+# ─────────────────────────────────────────────────────────────
+# Mots-clés positifs — présence = points bonus
+# ─────────────────────────────────────────────────────────────
+KEYWORDS_POSITIVE = {
+    # Stack principale (poids fort)
+    "react":        3,
+    "react.js":     3,
+    "reactjs":      3,
+    "node":         3,
+    "node.js":      3,
+    "nodejs":       3,
+    "javascript":   2,
+    "typescript":   2,
+    "js":           1,
+    "ts":           1,
+    # Stack secondaire
+    "express":      2,
+    "next.js":      2,
+    "nextjs":       2,
+    "mongodb":      1,
+    "postgresql":   1,
+    "mysql":        1,
+    "rest api":     1,
+    "api rest":     1,
+    "git":          1,
+    "docker":       1,
+    # Type de poste
+    "fullstack":    3,
+    "full stack":   3,
+    "full-stack":   3,
+    "frontend":     2,
+    "backend":      2,
+    "développeur":  1,
+    "developpeur":  1,
+    "développeuse": 1,
+    "engineer":     1,
+    # Remote / conditions
+    "télétravail":  1,
+    "teletravail":  1,
+    "remote":       1,
+    "hybride":      1,
 }
 
-SYSTEM_PROMPT = """Tu es un assistant RH expert qui analyse la compatibilité
-entre un profil développeur et une offre d'emploi.
-Tu réponds UNIQUEMENT en JSON valide, sans texte avant ou après.
-Format attendu :
-{
-  "score": <entier 0 à 10>,
-  "verdict": "<Excellent match | Bon match | Match partiel | Faible match>",
-  "points_positifs": ["...", "..."],
-  "points_negatifs": ["...", "..."],
-  "resume": "<1 phrase de synthèse>"
-}"""
-
-
-def _build_prompt(job: dict) -> str:
-    profile_str = json.dumps(PROFILE, ensure_ascii=False, indent=2)
-    return f"""
-PROFIL DU CANDIDAT :
-{profile_str}
-
-OFFRE D'EMPLOI :
-- Titre       : {job['title']}
-- Entreprise  : {job['company']}
-- Lieu        : {job['location']}
-- Contrat     : {job['contract']}
-- Salaire     : {job['salary']}
-- Source      : {job['source']}
-- Description : {job['description']}
-
-Analyse la compatibilité et retourne le JSON demandé.
-"""
+# ─────────────────────────────────────────────────────────────
+# Mots-clés négatifs — présence = pénalité
+# ─────────────────────────────────────────────────────────────
+KEYWORDS_NEGATIVE = {
+    "10 ans":           4,
+    "15 ans":           5,
+    "java ":            2,    # espace pour ne pas bloquer "javascript"
+    "php":              2,
+    ".net":             2,
+    "c#":               2,
+    "ruby":             2,
+    "lead technique":   2,
+    "architecte":       2,
+    "devops":           1,
+    "stage":            3,    # si tu ne veux pas de stage
+}
 
 
 def analyze_job(job: dict) -> dict | None:
     """
-    Envoie l'offre à Claude et retourne le résultat d'analyse.
-    Retourne None si le score est < MIN_SCORE ou si erreur.
+    Analyse une offre par mots-clés.
+    Retourne un dict d'analyse si score >= MIN_SCORE, sinon None.
     """
-    try:
-        payload = {
-            "model":      "claude-sonnet-4-20250514",
-            "max_tokens": 512,
-            "system":     SYSTEM_PROMPT,
-            "messages":   [{"role": "user", "content": _build_prompt(job)}],
-        }
-        r = requests.post(CLAUDE_URL, headers=HEADERS, json=payload, timeout=30)
-        r.raise_for_status()
+    text = (
+        job.get("title", "") + " " +
+        job.get("description", "") + " " +
+        job.get("company", "")
+    ).lower()
 
-        raw = r.json()["content"][0]["text"].strip()
+    # ── Calcul du score ──────────────────────────────────────
+    raw_score    = 0
+    max_possible = sum(v for v in KEYWORDS_POSITIVE.values() if v >= 2)
 
-        # Nettoyage au cas où Claude ajoute des backticks
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
+    points_positifs = []
+    points_negatifs = []
 
-        analysis = json.loads(raw)
-        score = int(analysis.get("score", 0))
+    for kw, weight in KEYWORDS_POSITIVE.items():
+        if kw in text:
+            raw_score += weight
+            if weight >= 2:
+                points_positifs.append(f"{kw.capitalize()} mentionné")
 
-        if score < MIN_SCORE:
-            logger.debug(f"Score trop bas ({score}/10) : {job['title']}")
-            return None
+    for kw, penalty in KEYWORDS_NEGATIVE.items():
+        if kw in text:
+            raw_score -= penalty
+            points_negatifs.append(f"{kw.strip().capitalize()} détecté")
 
-        return {**analysis, "score": score}
+    # ── Bonus contrat / lieu ─────────────────────────────────
+    location_text = job.get("location", "").lower()
+    for loc in PROFILE.get("locations", []):
+        if loc.lower() in location_text:
+            raw_score += 1
+            break
 
-    except json.JSONDecodeError as e:
-        logger.error(f"[Claude] JSON invalide pour '{job['title']}' : {e}")
+    contract = job.get("contract", "").upper()
+    for ct in PROFILE.get("contract_types", []):
+        if ct.upper() in contract:
+            raw_score += 1
+            break
+
+    # ── Normalisation sur 10 ────────────────────────────────
+    score = round(max(0, min(10, (raw_score / max(max_possible, 1)) * 10)))
+
+    if score < MIN_SCORE:
+        logger.debug(f"Score trop bas ({score}/10) : {job['title']}")
         return None
-    except Exception as e:
-        logger.error(f"[Claude] Erreur API pour '{job['title']}' : {e}")
-        return None
+
+    # ── Verdict ──────────────────────────────────────────────
+    if score >= 9:   verdict = "Excellent match"
+    elif score >= 7: verdict = "Bon match"
+    elif score >= 5: verdict = "Match partiel"
+    else:            verdict = "Faible match"
+
+    resume = (
+        f"Score calculé sur {len(points_positifs)} technologie(s) clé(s) détectée(s)"
+        + (f", {len(points_negatifs)} point(s) négatif(s)" if points_negatifs else "")
+        + "."
+    )
+
+    logger.info(f"   ➜ Score {score}/10 — {verdict}")
+    return {
+        "score":           score,
+        "verdict":         verdict,
+        "points_positifs": points_positifs or ["Profil potentiellement compatible"],
+        "points_negatifs": points_negatifs,
+        "resume":          resume,
+    }
