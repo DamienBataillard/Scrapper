@@ -97,3 +97,107 @@
 2026-03-30 11:30:02,181 [INFO] 📬 0 nouvelles offres à analyser
 2026-03-30 11:30:02,466 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
 
+2026-03-30 11:33:31,937 [INFO] 🚀 Job Hunter Bot démarré !
+2026-03-30 11:33:31,937 [INFO] ⏱  Intervalle : toutes les 120 minutes
+2026-03-30 11:33:31,937 [INFO] ============================================================
+2026-03-30 11:33:31,937 [INFO] 🔍 Nouveau cycle — 30/03/2026 11:33
+2026-03-30 11:33:31,937 [INFO] ============================================================
+2026-03-30 11:33:32,175 [INFO]    [FranceTravail] ✅ HTTP 200 — 9 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 11:33:34,505 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'full stack javascript'
+2026-03-30 11:33:36,525 [INFO] [FranceTravail] 29 offres trouvées
+2026-03-30 11:33:37,622 [WARNING]    [Indeed] 🚫 HTTP 403 — Accès bloqué / rate limit | mot-clé : 'développeur fullstack react node' → le site a détecté le bot
+2026-03-30 11:33:37,753 [WARNING]    [Indeed] ❌ HTTP 404 | mot-clé : 'full stack javascript' → réponse inattendue
+2026-03-30 11:33:37,753 [INFO] [Indeed] 0 offres trouvées
+2026-03-30 11:33:38,812 [ERROR] [WTTJ] Erreur : HTTPSConnectionPool(host='rqfkuxny9b-dsn.algolia.net', port=443): Max retries exceeded with url: /1/indexes/wttj_jobs_production_fr/query (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000023DF0DDAFC0>: Failed to resolve 'rqfkuxny9b-dsn.algolia.net' ([Errno 11001] getaddrinfo failed)"))
+2026-03-30 11:33:38,812 [INFO] [WTTJ] 0 offres trouvées
+2026-03-30 11:33:40,001 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'développeur fullstack react node' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:33:42,158 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'full stack javascript' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:33:44,160 [INFO] [HelloWork] 0 offres trouvées
+2026-03-30 11:33:45,870 [INFO]    [LinkedIn] ✅ HTTP 200 — 1 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 11:33:48,878 [INFO] [LinkedIn] 1 offres trouvées
+2026-03-30 11:33:49,879 [INFO] Total : 30 offres uniques
+2026-03-30 11:33:49,879 [INFO] 📬 0 nouvelles offres à analyser
+2026-03-30 11:33:50,134 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
+
+2026-03-30 11:35:28,690 [INFO] 🚀 Job Hunter Bot démarré !
+2026-03-30 11:35:28,690 [INFO] ⏱  Intervalle : toutes les 120 minutes
+2026-03-30 11:35:28,690 [INFO] ============================================================
+2026-03-30 11:35:28,690 [INFO] 🔍 Nouveau cycle — 30/03/2026 11:35
+2026-03-30 11:35:28,690 [INFO] ============================================================
+2026-03-30 11:35:29,038 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'développeur fullstack'
+2026-03-30 11:35:31,338 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'full stack javascript'
+2026-03-30 11:35:33,360 [INFO] [FranceTravail] 40 offres trouvées
+2026-03-30 11:35:34,507 [WARNING]    [Indeed] ❌ HTTP 404 | mot-clé : 'développeur fullstack' → réponse inattendue
+2026-03-30 11:35:34,608 [WARNING]    [Indeed] ❌ HTTP 404 | mot-clé : 'full stack javascript' → réponse inattendue
+2026-03-30 11:35:34,608 [INFO] [Indeed] 0 offres trouvées
+2026-03-30 11:35:35,678 [ERROR] [WTTJ] Erreur : HTTPSConnectionPool(host='rqfkuxny9b-dsn.algolia.net', port=443): Max retries exceeded with url: /1/indexes/wttj_jobs_production_fr/query (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001DC7E67BF20>: Failed to resolve 'rqfkuxny9b-dsn.algolia.net' ([Errno 11001] getaddrinfo failed)"))
+2026-03-30 11:35:35,679 [INFO] [WTTJ] 0 offres trouvées
+2026-03-30 11:35:37,113 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'développeur fullstack' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:35:39,277 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'full stack javascript' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:35:41,278 [INFO] [HelloWork] 0 offres trouvées
+2026-03-30 11:35:42,946 [INFO]    [LinkedIn] ✅ HTTP 200 — 1 cards trouvées | mot-clé : 'développeur fullstack'
+2026-03-30 11:35:45,962 [INFO] [LinkedIn] 1 offres trouvées
+2026-03-30 11:35:46,963 [INFO] Total : 40 offres uniques
+2026-03-30 11:35:46,963 [INFO] 📬 19 nouvelles offres à analyser
+2026-03-30 11:35:46,963 [INFO] 🤖 Analyse : DEVELOPPEUR FULLSTACK / BACK-END H/F (H/F) [FranceTravail]
+2026-03-30 11:35:46,963 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:48,465 [INFO] 🤖 Analyse : Développeur fullstack Dotnet (H/F) [FranceTravail]
+2026-03-30 11:35:48,465 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:49,966 [INFO] 🤖 Analyse : Concepteur développeur fullstack confirmé - Python (H/F) [FranceTravail]
+2026-03-30 11:35:49,966 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:51,466 [INFO] 🤖 Analyse : Développeur Fullstack Java / Angular (H/F) [FranceTravail]
+2026-03-30 11:35:51,466 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:52,967 [INFO] 🤖 Analyse : Développeur fullstack Laravel /VueJs (H/F) [FranceTravail]
+2026-03-30 11:35:52,967 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:54,468 [INFO] 🤖 Analyse : Développeur fullstack PHP REACT H/F (H/F) [FranceTravail]
+2026-03-30 11:35:54,468 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:55,969 [INFO] 🤖 Analyse : Développeur Fullstack Java / React (H/F) [FranceTravail]
+2026-03-30 11:35:55,969 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:57,470 [INFO] 🤖 Analyse : Développeur Fullstack Senior Node.js / Angular (H/F) [FranceTravail]
+2026-03-30 11:35:57,470 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:35:58,971 [INFO] 🤖 Analyse : Développeur Fullstack Windev (H/F) [FranceTravail]
+2026-03-30 11:35:58,971 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:00,472 [INFO] 🤖 Analyse : Développeur Fullstack Windev (H/F) [FranceTravail]
+2026-03-30 11:36:00,472 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:01,973 [INFO] 🤖 Analyse : Développeur Fullstack H/F [FranceTravail]
+2026-03-30 11:36:01,973 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:03,474 [INFO] 🤖 Analyse : Développeur Fullstack .NET / C# (H/F) - Portail Web & Cloud Azure (H/F) [FranceTravail]
+2026-03-30 11:36:03,474 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:04,974 [INFO] 🤖 Analyse : Développeur Fullstack .NET / Angular (H/F) [FranceTravail]
+2026-03-30 11:36:04,974 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:06,475 [INFO] 🤖 Analyse : Développeur(se) Fullstack IA (H/F) [FranceTravail]
+2026-03-30 11:36:06,475 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:07,976 [INFO] 🤖 Analyse : Développeur - Développeuse Fullstack Reac  (H/F) [FranceTravail]
+2026-03-30 11:36:07,976 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:09,477 [INFO] 🤖 Analyse : Développeur Fullstack : Java React (H/F) [FranceTravail]
+2026-03-30 11:36:09,477 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:10,978 [INFO] 🤖 Analyse : Développeur Fullstack Java  (H/F) [FranceTravail]
+2026-03-30 11:36:10,978 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:12,479 [INFO] 🤖 Analyse : Lead Développeur Web Fullstack - CDI (H/F) [FranceTravail]
+2026-03-30 11:36:12,479 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:13,980 [INFO] 🤖 Analyse : Développeur fullstack Senior (h/f) (H/F) [FranceTravail]
+2026-03-30 11:36:13,980 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:36:15,851 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
+
+2026-03-30 11:38:33,228 [INFO] 🚀 Job Hunter Bot démarré !
+2026-03-30 11:38:33,228 [INFO] ⏱  Intervalle : toutes les 120 minutes
+2026-03-30 11:38:33,228 [INFO] ============================================================
+2026-03-30 11:38:33,228 [INFO] 🔍 Nouveau cycle — 30/03/2026 11:38
+2026-03-30 11:38:33,228 [INFO] ============================================================
+2026-03-30 11:38:33,528 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'développeur fullstack'
+2026-03-30 11:38:35,768 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'full stack javascript'
+2026-03-30 11:38:37,782 [INFO] [FranceTravail] 40 offres trouvées
+2026-03-30 11:38:38,879 [WARNING]    [Indeed] ❌ HTTP 404 | mot-clé : 'développeur fullstack' → réponse inattendue
+2026-03-30 11:38:38,989 [WARNING]    [Indeed] ❌ HTTP 404 | mot-clé : 'full stack javascript' → réponse inattendue
+2026-03-30 11:38:38,989 [INFO] [Indeed] 0 offres trouvées
+2026-03-30 11:38:40,021 [ERROR] [WTTJ] Erreur : HTTPSConnectionPool(host='rqfkuxny9b-dsn.algolia.net', port=443): Max retries exceeded with url: /1/indexes/wttj_jobs_production_fr/query (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001FD501DBB30>: Failed to resolve 'rqfkuxny9b-dsn.algolia.net' ([Errno 11001] getaddrinfo failed)"))
+2026-03-30 11:38:40,021 [INFO] [WTTJ] 0 offres trouvées
+2026-03-30 11:38:41,221 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'développeur fullstack' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:38:43,377 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'full stack javascript' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:38:45,379 [INFO] [HelloWork] 0 offres trouvées
+2026-03-30 11:38:47,046 [INFO]    [LinkedIn] ✅ HTTP 200 — 1 cards trouvées | mot-clé : 'développeur fullstack'
+2026-03-30 11:38:50,048 [INFO] [LinkedIn] 1 offres trouvées
+2026-03-30 11:38:51,049 [INFO] Total : 40 offres uniques
+2026-03-30 11:38:51,049 [INFO] 📬 0 nouvelles offres à analyser
+2026-03-30 11:38:51,348 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
+
