@@ -55,7 +55,7 @@ def fetch_france_travail():
     jobs = []
     try:
         for location in SEARCH_LOCATIONS:
-            for keyword in SEARCH_KEYWORDS[:2]:
+            for keyword in SEARCH_KEYWORDS:
                 url = "https://candidat.francetravail.fr/offres/recherche"
                 params = {"motsCles": keyword, "ville": location, "rayonRecherche": 50}
                 r = requests.get(url, params=params, headers=HEADERS, timeout=15)
