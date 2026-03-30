@@ -5,14 +5,11 @@ scrapers.py — France Travail + LinkedIn uniquement
 import requests
 import time
 import logging
-import os
 from datetime import datetime
 from bs4 import BeautifulSoup
 from config import SEARCH_KEYWORDS, SEARCH_LOCATION
 
 logger = logging.getLogger(__name__)
-
-DEBUG_HTML = os.environ.get("DEBUG_HTML", "false").lower() == "true"
 
 HEADERS = {
     "User-Agent": (
@@ -30,22 +27,11 @@ def _log_request(source, url, status, cards, keyword=""):
     if status == 200 and cards > 0:
         logger.info(f"   [{source}] ✅ HTTP {status} — {cards} cards trouvées{kw_str}")
     elif status == 200 and cards == 0:
-        logger.warning(f"   [{source}] ⚠️  HTTP {status} — 0 cards trouvées{kw_str} → sélecteur CSS peut-être obsolète")
+        logger.warning(f"   [{source}] ⚠️  HTTP {status} — 0 cards trouvées{kw_str}")
     elif status in (403, 429):
         logger.warning(f"   [{source}] 🚫 HTTP {status} — Accès bloqué{kw_str}")
     else:
         logger.warning(f"   [{source}] ❌ HTTP {status}{kw_str}")
-
-
-def _save_debug_html(source, keyword, html):
-    if not DEBUG_HTML:
-        return
-    os.makedirs("debug_html", exist_ok=True)
-    slug = keyword.replace(" ", "_")[:30]
-    path = f"debug_html/{source}_{slug}.html"
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(html)
-    logger.info(f"   [{source}] 💾 HTML sauvegardé → {path}")
 
 
 def make_job(source, job_id, title, company, location, contract,
@@ -74,7 +60,6 @@ def fetch_france_travail():
             soup = BeautifulSoup(r.text, "html.parser")
             cards = soup.find_all("li", class_="result")
             _log_request("FranceTravail", r.url, r.status_code, len(cards), keyword)
-            _save_debug_html("FranceTravail", keyword, r.text)
             for card in cards:
                 try:
                     title_el   = card.find("h2") or card.find("h3")
@@ -109,7 +94,6 @@ def fetch_linkedin():
             soup = BeautifulSoup(r.text, "html.parser")
             cards = soup.find_all("div", class_="base-card")
             _log_request("LinkedIn", r.url, r.status_code, len(cards), keyword)
-            _save_debug_html("LinkedIn", keyword, r.text)
             for card in cards:
                 try:
                     title_el = card.find("h3", class_="base-search-card__title")

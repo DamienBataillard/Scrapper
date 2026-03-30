@@ -88,20 +88,6 @@ Le container redémarre automatiquement si le script plante ou si le PC redémar
 
 ---
 
-## 🐛 Mode debug
-
-Pour inspecter le HTML retourné par les sites et corriger les sélecteurs :
-
-```bash
-# Windows PowerShell
-$env:DEBUG_HTML="true"; python main.py
-
-# Mac / Linux
-DEBUG_HTML=true python main.py
-```
-
-Les fichiers HTML sont sauvegardés dans `debug_html/`.
-
 ---
 
 ## 📊 Exemple de notification Discord
