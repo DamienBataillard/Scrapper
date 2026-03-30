@@ -1,0 +1,138 @@
+# 🤖 Job Hunter Bot — React.js / Node.js
+
+Bot automatique qui scrape les offres d'emploi sur **France Travail** et **LinkedIn**, les analyse par filtrage mots-clés et t'envoie les meilleures sur **Discord**.
+
+---
+
+## 📁 Structure du projet
+
+```
+job_hunter/
+├── main.py           ← Point d'entrée, scheduler
+├── config.py         ← Ton profil + paramètres
+├── scrapers.py       ← France Travail + LinkedIn
+├── analyzer.py       ← Scoring par mots-clés
+├── notifier.py       ← Envoi Discord
+├── requirements.txt
+├── .env              ← Tes secrets (non pushé sur Git)
+├── .env.example      ← Template à copier
+└── seen_jobs.json    ← Créé automatiquement (évite les doublons)
+```
+
+---
+
+## ⚡ Installation
+
+### 1. Prérequis
+```bash
+python --version   # Python 3.10+
+```
+
+### 2. Cloner & installer les dépendances
+```bash
+git clone https://github.com/ton-user/ton-repo.git
+cd ton-repo
+pip install -r requirements.txt
+```
+
+### 3. Configurer les secrets
+
+Copie le fichier `.env.example` en `.env` :
+```bash
+cp .env.example .env
+cp config.example.py config.py
+```
+
+Puis remplis ton webhook Discord dans `.env` :
+```
+DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/XXXXX/XXXXX
+```
+
+#### Obtenir un webhook Discord
+1. Ouvre ton serveur Discord
+2. Paramètres du canal → **Intégrations → Webhooks → Nouveau webhook**
+3. Copie l'URL dans le fichier `.env`
+
+### 4. Configurer ton profil
+
+Dans `config.py`, adapte la section `PROFILE` à ton profil :
+```python
+PROFILE = {
+    "experience_years": 3,
+    "locations": ["Amiens", "Télétravail"],
+    "min_salary": 38000,
+    ...
+}
+```
+
+---
+
+## 🚀 Lancement
+
+```bash
+python main.py
+```
+
+Le bot tourne en boucle et vérifie les nouvelles offres toutes les 2h. Pour l'arrêter : `Ctrl+C`
+
+---
+
+## 🐳 Lancement avec Docker
+
+```bash
+docker compose up -d          # démarre en arrière-plan
+docker compose logs -f        # voir les logs en direct
+docker compose stop           # arrêter
+```
+
+Le container redémarre automatiquement si le script plante ou si le PC redémarre (`restart: unless-stopped`).
+
+---
+
+---
+
+## 📊 Exemple de notification Discord
+
+```
+🇫🇷 Développeur Full Stack React/Node.js
+✅ Bon match — Score : 8/10
+
+Score calculé sur 3 technologie(s) clé(s) détectée(s)
+
+🔗 Voir l'annonce
+https://candidat.francetravail.fr/offres/emploi/...
+
+🏢 Entreprise : Acme Corp
+📍 Lieu : Amiens (80)
+📄 Contrat : CDI
+
+👍 Points positifs
+✅ React.js mentionné
+✅ Node.js mentionné
+✅ Typescript mentionné
+```
+
+---
+
+## ⚙️ Personnalisation
+
+| Paramètre         | Fichier     | Défaut | Description                     |
+|-------------------|-------------|--------|---------------------------------|
+| `MIN_SCORE`       | `config.py` | 6      | Score minimum pour notifier     |
+| `CHECK_INTERVAL`  | `config.py` | 120    | Minutes entre chaque cycle      |
+| `SEARCH_KEYWORDS` | `config.py` | …      | Mots-clés de recherche          |
+| `SEARCH_LOCATION` | `config.py` | Amiens | Ville / région de recherche     |
+
+---
+
+## ⚠️ Notes
+
+- **LinkedIn** : résultats limités à cause de l'anti-scraping. Active les alertes email LinkedIn en parallèle.
+- **`seen_jobs.json`** : grandit avec le temps. Supprime-le pour ré-analyser toutes les offres depuis zéro.
+- **Secrets** : ne commite jamais le fichier `.env` — il est dans le `.gitignore`.
+
+---
+
+## 💰 Coût
+
+**100% gratuit** — aucune API payante requise.

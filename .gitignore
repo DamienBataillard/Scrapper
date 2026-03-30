@@ -1,5 +1,6 @@
 # ── Secrets ──────────────────────────────────
 .env
+config.py
 
 # ── Données générées par le bot ──────────────
 seen_jobs.json

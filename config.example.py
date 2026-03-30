@@ -1,11 +1,12 @@
 # ============================================================
-#  CONFIG — Adapte cette section à ton profil
+#  Copie ce fichier en config.py et adapte à ton profil
+#  cp config.example.py config.py
 # ============================================================
 
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # charge automatiquement le fichier .env
+load_dotenv()
 
 # --- Ton profil développeur ---
 PROFILE = {
@@ -15,26 +16,24 @@ PROFILE = {
         "Express.js", "REST API", "MongoDB", "PostgreSQL",
         "Git", "HTML", "CSS", "Docker"
     ],
-    "experience_years": 3,
+    "experience_years": 0,          # ← tes années d'expérience
     "contract_types": ["CDI", "CDD", "Freelance", "Alternance"],
     "locations": [
-        "Amiens", "Hauts-de-France", "Télétravail",
-        "Remote", "Paris", "Lille"
+        "Ta ville", "Télétravail", "Remote"
     ],
-    "min_salary": 35000,
+    "min_salary": 0,                # ← 0 pour ignorer
     "remote_ok": True,
-    "excluded_keywords": [
-        "15 ans d'expérience", "10 ans minimum", "Architecte senior"
+    "excluded_keywords": [          # ← annonces à ignorer
+        "15 ans d'expérience", "10 ans minimum"
     ],
 }
 
-# --- Mots-clés de recherche pour chaque site ---
+# --- Mots-clés de recherche ---
 SEARCH_KEYWORDS = [
     "développeur fullstack react node",
     "full stack javascript",
-    "react node.js développeur",
 ]
-SEARCH_LOCATION = "Ile de France"
+SEARCH_LOCATION = "Ta ville"       # ← ta ville / région
 
 # ============================================================
 #  CLÉS & TOKENS — définies dans le fichier .env
@@ -49,6 +48,6 @@ if not DISCORD_WEBHOOK_URL:
 #  PARAMÈTRES DU BOT
 # ============================================================
 
-MIN_SCORE      = 6
-CHECK_INTERVAL = 120
+MIN_SCORE      = 6      # Score minimum sur 10 pour notifier
+CHECK_INTERVAL = 120    # Minutes entre chaque cycle
 SEEN_JOBS_FILE = "seen_jobs.json"
