@@ -1,0 +1,74 @@
+2026-03-30 11:18:29,943 [INFO] 🚀 Job Hunter Bot démarré !
+2026-03-30 11:18:29,943 [INFO] ⏱  Intervalle : toutes les 120 minutes
+2026-03-30 11:18:29,943 [INFO] ============================================================
+2026-03-30 11:18:29,943 [INFO] 🔍 Nouveau cycle — 30/03/2026 11:18
+2026-03-30 11:18:29,943 [INFO] ============================================================
+2026-03-30 11:18:34,525 [INFO] [FranceTravail] 29 offres trouvées
+2026-03-30 11:18:39,662 [INFO] [Indeed] 0 offres trouvées
+2026-03-30 11:18:41,284 [INFO] [WTTJ] 0 offres trouvées
+2026-03-30 11:18:47,095 [INFO] [HelloWork] 0 offres trouvées
+2026-03-30 11:18:51,840 [INFO] [LinkedIn] 1 offres trouvées
+2026-03-30 11:18:52,841 [INFO] Total : 30 offres uniques
+2026-03-30 11:18:52,841 [INFO] 📬 30 nouvelles offres à analyser
+2026-03-30 11:18:52,841 [INFO] 🤖 Analyse : Développeur Fullstack (H/F) [FranceTravail]
+2026-03-30 11:18:52,841 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:18:54,343 [INFO] 🤖 Analyse : Développeur Fullstack Node.js, / React ou Vue.js F/H - Informatique de gestion (H/F) [FranceTravail]
+2026-03-30 11:18:54,343 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:18:55,844 [INFO] 🤖 Analyse : Développeur Fullstack Node.js / React (H/F) [FranceTravail]
+2026-03-30 11:18:55,844 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:18:57,345 [INFO] 🤖 Analyse : Développeur Fullstack Node.js, / React ou Vue.js (H/F) [FranceTravail]
+2026-03-30 11:18:57,345 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:18:58,846 [INFO] 🤖 Analyse : Développeur FullStack (Node.js, TypeScript, React.js) - Rennes (H/F) [FranceTravail]
+2026-03-30 11:18:58,846 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:00,347 [INFO] 🤖 Analyse : Ingénieur Fullstack React.Js - Node.Js H/F [FranceTravail]
+2026-03-30 11:19:00,347 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:01,848 [INFO] 🤖 Analyse : Senior Software Engineer - Cloud Native / Fullstack (Node.js / React) F/H - Informatique industrielle (H/F) [FranceTravail]
+2026-03-30 11:19:01,848 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:03,348 [INFO] 🤖 Analyse : Fullstack Engineer (Front-focus — React/ Node) — Mid/Senior (H/F) [FranceTravail]
+2026-03-30 11:19:03,348 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:04,849 [INFO] 🤖 Analyse : Fullstack Engineer Front-Focus - React - Node - Mid - Senior H/F [FranceTravail]
+2026-03-30 11:19:04,849 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:06,350 [INFO] 🤖 Analyse : Développeur Full Stack JavaScript expérimenté (H/F) [FranceTravail]
+2026-03-30 11:19:06,350 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:07,850 [INFO] 🤖 Analyse : Développeur(se) informatique Full Stack C# Javascript (H/F) [FranceTravail]
+2026-03-30 11:19:07,850 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:09,351 [INFO] 🤖 Analyse : Tech Lead Full Stack Expérimenté (H/F) [FranceTravail]
+2026-03-30 11:19:09,351 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:10,852 [INFO] 🤖 Analyse : Développeur Full Stack Java Spring / Angular Senior (H/F) [FranceTravail]
+2026-03-30 11:19:10,852 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:12,353 [INFO] 🤖 Analyse : Développeur / Développeuse full-stack (Python/React) (H/F) [FranceTravail]
+2026-03-30 11:19:12,353 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:13,854 [INFO] 🤖 Analyse : Tech Lead Développeur (H/F) [FranceTravail]
+2026-03-30 11:19:13,854 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:15,354 [INFO] 🤖 Analyse : Développeur-euse Full Stack (H/F) [FranceTravail]
+2026-03-30 11:19:15,354 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:16,855 [INFO] 🤖 Analyse : Développeur - Développeuse full-stack (H/F) [FranceTravail]
+2026-03-30 11:19:16,855 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:18,356 [INFO] 🤖 Analyse : Développeur Full Stack H/F [FranceTravail]
+2026-03-30 11:19:18,356 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:19,857 [INFO] 🤖 Analyse : Développeur Web Full Stack - Clinical IT (H/F) [FranceTravail]
+2026-03-30 11:19:19,857 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:21,358 [INFO] 🤖 Analyse : Ingénieur Logiciel / Développeur Full-Stack IA (H/F) [FranceTravail]
+2026-03-30 11:19:21,358 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:22,859 [INFO] 🤖 Analyse : Développeur full stack / DevOps confirmé (H/F) [FranceTravail]
+2026-03-30 11:19:22,859 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:24,359 [INFO] 🤖 Analyse : Ingénieur Full stack   (H/F) [FranceTravail]
+2026-03-30 11:19:24,359 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:25,860 [INFO] 🤖 Analyse : Product Owner/Développeur full stack H/F (H/F) [FranceTravail]
+2026-03-30 11:19:25,860 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:27,361 [INFO] 🤖 Analyse : Développeur Web Full stack (H/F) [FranceTravail]
+2026-03-30 11:19:27,361 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:28,862 [INFO] 🤖 Analyse : Développeur full stack confirmé (H/F) [FranceTravail]
+2026-03-30 11:19:28,862 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:30,363 [INFO] 🤖 Analyse : Ingénieur Développement Full-stack (F/H) (H/F) [FranceTravail]
+2026-03-30 11:19:30,363 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:31,864 [INFO] 🤖 Analyse : Développeur web fullstack (H/F) [FranceTravail]
+2026-03-30 11:19:31,864 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:33,365 [INFO] 🤖 Analyse : Développeur Web et testeur Q/A (H/F) [FranceTravail]
+2026-03-30 11:19:33,365 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:34,866 [INFO] 🤖 Analyse : Développeur Senior (H/F) [FranceTravail]
+2026-03-30 11:19:34,866 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:36,366 [INFO] 🤖 Analyse : Ingénieur Senior Fullstack F/H [LinkedIn]
+2026-03-30 11:19:36,366 [INFO]    ➜ Score < 6/10, ignoré
+2026-03-30 11:19:38,200 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
+
