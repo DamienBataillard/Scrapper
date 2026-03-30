@@ -1,0 +1,150 @@
+# 🤖 Job Hunter Bot — React.js / Node.js
+
+Bot automatique qui scrape les offres d'emploi, les analyse avec Claude IA
+et t'envoie les meilleures sur Discord.
+
+---
+
+## 📁 Structure du projet
+
+```
+job_hunter/
+├── main.py           ← Point d'entrée, scheduler
+├── config.py         ← TON PROFIL + clés API  ← à remplir !
+├── scrapers.py       ← France Travail, Indeed, WTTJ, HelloWork, LinkedIn
+├── analyzer.py       ← Analyse IA via Claude
+├── notifier.py       ← Envoi Discord
+├── requirements.txt
+└── seen_jobs.json    ← Créé automatiquement (évite les doublons)
+```
+
+---
+
+## ⚡ Installation (5 minutes)
+
+### 1. Prérequis
+```bash
+python --version   # Python 3.10+
+```
+
+### 2. Cloner & installer
+```bash
+cd job_hunter
+pip install -r requirements.txt
+```
+
+### 3. Configurer `config.py`
+
+#### 🔑 Clé Anthropic (Claude)
+1. Va sur https://console.anthropic.com/
+2. Crée un compte, puis **API Keys > Create Key**
+3. Copie la clé dans `config.py` → `ANTHROPIC_API_KEY`
+> 💡 Coût estimé : ~0.003€ par offre analysée (très peu cher)
+
+#### 🎮 Webhook Discord
+1. Ouvre ton serveur Discord
+2. Paramètres du canal → **Intégrations → Webhooks → Nouveau webhook**
+3. Copie l'URL dans `config.py` → `DISCORD_WEBHOOK_URL`
+
+#### 🇫🇷 API France Travail (gratuit)
+1. Va sur https://francetravail.io/data/api/offres-emploi
+2. Clique **"S'abonner"** (compte gratuit)
+3. Récupère `client_id` et `client_secret`
+4. Remplis `FRANCE_TRAVAIL_CLIENT_ID` et `FRANCE_TRAVAIL_CLIENT_SECRET`
+
+#### 👤 Ton profil
+Dans `config.py`, modifie la section `PROFILE` :
+```python
+PROFILE = {
+    "experience_years": 3,     # ← tes années d'expérience
+    "locations": ["Amiens", "Télétravail"],
+    "min_salary": 38000,       # ← ton salaire minimum
+    ...
+}
+```
+
+---
+
+## 🚀 Lancement
+
+```bash
+python main.py
+```
+
+Le bot tourne en boucle. Pour l'arrêter : `Ctrl+C`
+
+---
+
+## ⏰ Lancement automatique au démarrage
+
+### Linux / Mac (crontab)
+```bash
+crontab -e
+# Ajouter cette ligne (relance si le bot s'arrête) :
+@reboot cd /chemin/vers/job_hunter && python main.py >> job_hunter.log 2>&1 &
+```
+
+### Windows (Task Scheduler)
+1. Cherche "Planificateur de tâches" dans le menu Démarrer
+2. Créer une tâche de base → "Au démarrage"
+3. Action : `python C:\chemin\vers\job_hunter\main.py`
+
+---
+
+## 📊 Exemple de notification Discord
+
+```
+🌴 Développeur Full Stack React/Node.js
+✅ Bon match — Score : 8/10
+
+_Poste adapté à ton profil, technologies identiques,
+télétravail possible_
+
+🏢 Entreprise : Acme Corp
+📍 Lieu : Amiens (80)
+📄 Contrat : CDI
+💰 Salaire : 40 000 - 45 000 €/an
+
+👍 Points positifs
+✅ React.js et Node.js requis
+✅ Télétravail partiel proposé
+✅ Expérience 2-4 ans demandée
+
+⚠️ Points à noter
+⚠️ Déplacements occasionnels possibles
+```
+
+---
+
+## ⚙️ Personnalisation
+
+| Paramètre        | Où                | Défaut | Effet                              |
+|------------------|-------------------|--------|------------------------------------|
+| `MIN_SCORE`      | `config.py`       | 6      | Score mini pour notifier (0-10)    |
+| `CHECK_INTERVAL` | `config.py`       | 120    | Minutes entre chaque cycle         |
+| `SEARCH_KEYWORDS`| `config.py`       | …      | Mots-clés de recherche             |
+| `SEARCH_LOCATION`| `config.py`       | Amiens | Ville de recherche                 |
+
+---
+
+## ⚠️ Notes importantes
+
+- **LinkedIn** : anti-scraping très agressif, les résultats peuvent être limités.
+  Active les alertes email LinkedIn en parallèle comme backup.
+- **Indeed** : structure HTML qui peut changer. Si plus de résultats, ouvre un
+  ticket ou adapte les sélecteurs dans `scrapers.py`.
+- Le fichier `seen_jobs.json` grandit avec le temps. Tu peux le vider pour
+  ré-analyser toutes les offres actuelles.
+
+---
+
+## 💰 Coûts estimés
+
+| Élément         | Coût               |
+|-----------------|--------------------|
+| Claude API      | ~0.003€/offre      |
+| France Travail  | Gratuit            |
+| Discord Webhook | Gratuit            |
+| Indeed / WTTJ   | Gratuit (scraping) |
+
+Pour 20 nouvelles offres/jour → **~2€/mois** max.
