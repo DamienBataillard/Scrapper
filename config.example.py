@@ -33,7 +33,11 @@ SEARCH_KEYWORDS = [
     "développeur fullstack react node",
     "full stack javascript",
 ]
-SEARCH_LOCATION = "Ta ville"       # ← ta ville / région
+SEARCH_LOCATIONS = [               # ← une ou plusieurs villes
+    "Ta ville",
+    "Paris",
+    "Télétravail",
+]       # ← ta ville / région
 
 # ============================================================
 #  CLÉS & TOKENS — définies dans le fichier .env

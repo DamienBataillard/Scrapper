@@ -11,7 +11,7 @@ from datetime import datetime
 
 import schedule
 
-from config import CHECK_INTERVAL, SEEN_JOBS_FILE, MIN_SCORE, PROFILE, SEARCH_KEYWORDS, SEARCH_LOCATION
+from config import CHECK_INTERVAL, SEEN_JOBS_FILE, MIN_SCORE, PROFILE, SEARCH_KEYWORDS, SEARCH_LOCATIONS
 from scrapers import fetch_all_jobs
 from analyzer import analyze_job
 from notifier import send_to_discord, send_summary
@@ -135,7 +135,7 @@ if __name__ == "__main__":
     logger.info("🚀 JOB HUNTER BOT DÉMARRÉ")
     logger.info("=" * 60)
     logger.info(f"👤 Profil    : {PROFILE['title']}")
-    logger.info(f"📍 Lieu      : {SEARCH_LOCATION}")
+    logger.info(f"📍 Lieu      : {SEARCH_LOCATIONS}")
     logger.info(f"🔑 Mots-clés : {', '.join(SEARCH_KEYWORDS)}")
     logger.info(f"⭐ Score min : {MIN_SCORE}/10")
     logger.info(f"⏱  Intervalle: toutes les {CHECK_INTERVAL} min")
