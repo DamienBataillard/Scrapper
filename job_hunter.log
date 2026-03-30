@@ -803,3 +803,168 @@
 2026-03-30 12:18:59,725 [INFO]    • Prochain cycle dans 120 min
 2026-03-30 12:18:59,725 [INFO] ============================================================
 
+2026-03-30 12:37:19,567 [INFO] ============================================================
+2026-03-30 12:37:19,568 [INFO] 🚀 JOB HUNTER BOT DÉMARRÉ
+2026-03-30 12:37:19,568 [INFO] ============================================================
+2026-03-30 12:37:19,568 [INFO] 👤 Profil    : Développeur Full Stack React.js / Node.js
+2026-03-30 12:37:19,568 [INFO] 📍 Lieu      : Amiens
+2026-03-30 12:37:19,568 [INFO] 🔑 Mots-clés : développeur fullstack react node, full stack javascript, react node.js développeur
+2026-03-30 12:37:19,569 [INFO] ⭐ Score min : 6/10
+2026-03-30 12:37:19,569 [INFO] ⏱  Intervalle: toutes les 120 min
+2026-03-30 12:37:19,570 [INFO] ============================================================
+
+2026-03-30 12:37:19,570 [INFO] ============================================================
+2026-03-30 12:37:19,570 [INFO] 🔍 NOUVEAU CYCLE — 30/03/2026 12:37:19
+2026-03-30 12:37:19,570 [INFO] ============================================================
+2026-03-30 12:37:19,570 [INFO] 📡 Lancement du scraping sur tous les sites...
+2026-03-30 12:37:19,856 [INFO]    [FranceTravail] ✅ HTTP 200 — 9 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 12:37:19,859 [INFO]    [FranceTravail] 💾 HTML sauvegardé → debug_html/FranceTravail_développeur_fullstack_react_no.html
+2026-03-30 12:37:22,138 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'full stack javascript'
+2026-03-30 12:37:22,140 [INFO]    [FranceTravail] 💾 HTML sauvegardé → debug_html/FranceTravail_full_stack_javascript.html
+2026-03-30 12:37:24,154 [INFO] [FranceTravail] 29 offres trouvées
+2026-03-30 12:37:25,803 [INFO]    [LinkedIn] ✅ HTTP 200 — 1 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 12:37:25,805 [INFO]    [LinkedIn] 💾 HTML sauvegardé → debug_html/LinkedIn_développeur_fullstack_react_no.html
+2026-03-30 12:37:39,591 [INFO] ============================================================
+2026-03-30 12:37:39,592 [INFO] 🚀 JOB HUNTER BOT DÉMARRÉ
+2026-03-30 12:37:39,592 [INFO] ============================================================
+2026-03-30 12:37:39,592 [INFO] 👤 Profil    : Développeur Full Stack React.js / Node.js
+2026-03-30 12:37:39,592 [INFO] 📍 Lieu      : Ile de France
+2026-03-30 12:37:39,592 [INFO] 🔑 Mots-clés : développeur fullstack react node, full stack javascript, react node.js développeur
+2026-03-30 12:37:39,592 [INFO] ⭐ Score min : 6/10
+2026-03-30 12:37:39,592 [INFO] ⏱  Intervalle: toutes les 120 min
+2026-03-30 12:37:39,592 [INFO] ============================================================
+
+2026-03-30 12:37:39,593 [INFO] ============================================================
+2026-03-30 12:37:39,593 [INFO] 🔍 NOUVEAU CYCLE — 30/03/2026 12:37:39
+2026-03-30 12:37:39,593 [INFO] ============================================================
+2026-03-30 12:37:39,593 [INFO] 📡 Lancement du scraping sur tous les sites...
+2026-03-30 12:37:39,859 [INFO]    [FranceTravail] ✅ HTTP 200 — 9 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 12:37:39,861 [INFO]    [FranceTravail] 💾 HTML sauvegardé → debug_html/FranceTravail_développeur_fullstack_react_no.html
+2026-03-30 12:37:42,148 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'full stack javascript'
+2026-03-30 12:37:42,151 [INFO]    [FranceTravail] 💾 HTML sauvegardé → debug_html/FranceTravail_full_stack_javascript.html
+2026-03-30 12:37:44,168 [INFO] [FranceTravail] 29 offres trouvées
+2026-03-30 12:37:46,087 [INFO]    [LinkedIn] ✅ HTTP 200 — 60 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 12:37:46,091 [INFO]    [LinkedIn] 💾 HTML sauvegardé → debug_html/LinkedIn_développeur_fullstack_react_no.html
+2026-03-30 12:37:49,100 [INFO] [LinkedIn] 60 offres trouvées
+2026-03-30 12:37:50,101 [INFO] Total : 89 offres uniques
+2026-03-30 12:37:50,101 [INFO] 📊 Résultats scraping :
+2026-03-30 12:37:50,101 [INFO]    • Total trouvé   : 89
+2026-03-30 12:37:50,102 [INFO]    • Déjà vus       : 63 (ignorés)
+2026-03-30 12:37:50,102 [INFO]    • Nouvelles      : 26 à analyser
+2026-03-30 12:37:50,103 [INFO]    └─ FranceTravail   : 29 offre(s)
+2026-03-30 12:37:50,103 [INFO]    └─ LinkedIn        : 60 offre(s)
+2026-03-30 12:37:50,103 [INFO] 
+🤖 Analyse des 26 nouvelles offres...
+2026-03-30 12:37:50,103 [INFO] ------------------------------------------------------------
+2026-03-30 12:37:50,104 [INFO] [1/26] FranceTravail   | Développeur Fullstack (H/F)
+2026-03-30 12:37:50,104 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:37:50,104 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:37:50,104 [INFO] 
+2026-03-30 12:37:51,605 [INFO] [2/26] FranceTravail   | Développeur Fullstack Node.js, / React ou Vue.js F
+2026-03-30 12:37:51,605 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:37:51,606 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:37:51,606 [INFO] 
+2026-03-30 12:37:53,107 [INFO] [3/26] FranceTravail   | Développeur Fullstack Node.js / React (H/F)
+2026-03-30 12:37:53,107 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:37:53,107 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:37:53,107 [INFO] 
+2026-03-30 12:37:54,608 [INFO] [4/26] FranceTravail   | Développeur Fullstack Node.js, / React ou Vue.js (
+2026-03-30 12:37:54,609 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:37:54,610 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:37:54,610 [INFO] 
+2026-03-30 12:37:56,112 [INFO] [5/26] FranceTravail   | Développeur FullStack (Node.js, TypeScript, React.
+2026-03-30 12:37:56,112 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:37:56,112 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:37:56,112 [INFO] 
+2026-03-30 12:37:57,613 [INFO] [6/26] FranceTravail   | Ingénieur Fullstack React.Js - Node.Js H/F
+2026-03-30 12:37:57,613 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:37:57,613 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:37:57,613 [INFO] 
+2026-03-30 12:37:59,114 [INFO] [7/26] FranceTravail   | Senior Software Engineer - Cloud Native / Fullstac
+2026-03-30 12:37:59,114 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:37:59,114 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:37:59,114 [INFO] 
+2026-03-30 12:38:00,615 [INFO] [8/26] FranceTravail   | Fullstack Engineer (Front-focus — React/ Node) — M
+2026-03-30 12:38:00,615 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:38:00,615 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:00,615 [INFO] 
+2026-03-30 12:38:02,117 [INFO] [9/26] FranceTravail   | Fullstack Engineer Front-Focus - React - Node - Mi
+2026-03-30 12:38:02,117 [INFO]          Entreprise : ? | Lieu : Ile de France
+2026-03-30 12:38:02,117 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:02,118 [INFO] 
+2026-03-30 12:38:03,618 [INFO] [10/26] LinkedIn        | Full Stack Web Developer Intern (React / TypeScrip
+2026-03-30 12:38:03,618 [INFO]          Entreprise : Aplo | Lieu : Ville de Paris
+2026-03-30 12:38:03,618 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:03,619 [INFO] 
+2026-03-30 12:38:05,120 [INFO] [11/26] LinkedIn        | Développeur Fullstack H/F
+2026-03-30 12:38:05,121 [INFO]          Entreprise : Expleo Group | Lieu : Montigny-le-Bretonneux
+2026-03-30 12:38:05,121 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:05,122 [INFO] 
+2026-03-30 12:38:06,623 [INFO] [12/26] LinkedIn        | Back-End Engineer
+2026-03-30 12:38:06,624 [INFO]          Entreprise : Yousign | Lieu : Paris
+2026-03-30 12:38:06,624 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:06,625 [INFO] 
+2026-03-30 12:38:08,126 [INFO] [13/26] LinkedIn        | Développeur(se) Node React GraphQL Senior(e) F/H/X
+2026-03-30 12:38:08,126 [INFO]          Entreprise : Eleven Labs | Lieu : Ville de Paris
+2026-03-30 12:38:08,126 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:08,126 [INFO] 
+2026-03-30 12:38:09,627 [INFO] [14/26] LinkedIn        | Senior Full-Stack Engineer (Node.js / React / Type
+2026-03-30 12:38:09,627 [INFO]          Entreprise : Capi Money | Lieu : Ville de Paris
+2026-03-30 12:38:09,627 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:09,627 [INFO] 
+2026-03-30 12:38:11,128 [INFO] [15/26] LinkedIn        | Développeur Back-End (Node.js) H/F
+2026-03-30 12:38:11,129 [INFO]          Entreprise : Kicklox | Lieu : Paris
+2026-03-30 12:38:11,130 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:11,130 [INFO] 
+2026-03-30 12:38:12,631 [INFO] [16/26] LinkedIn        | Ingénieur Javascript /Lead – FinTech
+2026-03-30 12:38:12,631 [INFO]          Entreprise : Sander | Lieu : Ville de Paris
+2026-03-30 12:38:12,631 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:12,631 [INFO] 
+2026-03-30 12:38:14,132 [INFO] [17/26] LinkedIn        | Senior Front-end Developer (Angular expert) H/F - 
+2026-03-30 12:38:14,132 [INFO]          Entreprise : papernest | Lieu : Paris
+2026-03-30 12:38:14,132 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:14,132 [INFO] 
+2026-03-30 12:38:15,634 [INFO] [18/26] LinkedIn        | Développeur Front-End (Vue.js) H/F
+2026-03-30 12:38:15,634 [INFO]          Entreprise : Kicklox | Lieu : Paris
+2026-03-30 12:38:15,634 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:15,634 [INFO] 
+2026-03-30 12:38:17,135 [INFO] [19/26] LinkedIn        | Formation Développeur Web et Applications (alterna
+2026-03-30 12:38:17,135 [INFO]          Entreprise : Decentra Formation | Lieu : Île-de-France, France
+2026-03-30 12:38:17,136 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:17,136 [INFO] 
+2026-03-30 12:38:18,638 [INFO] [20/26] LinkedIn        | Principal Fullstack Engineer (EMEA, Remote)
+2026-03-30 12:38:18,638 [INFO]          Entreprise : Pragmatike | Lieu : Paris
+2026-03-30 12:38:18,638 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:18,638 [INFO] 
+2026-03-30 12:38:20,139 [INFO] [21/26] LinkedIn        | Senior Fullstack Engineer
+2026-03-30 12:38:20,141 [INFO]          Entreprise : Naboo | Lieu : Paris
+2026-03-30 12:38:20,141 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:20,142 [INFO] 
+2026-03-30 12:38:21,642 [INFO] [22/26] LinkedIn        | Développeur Full-Stack (Ruby) H/F
+2026-03-30 12:38:21,642 [INFO]          Entreprise : Kicklox | Lieu : Paris
+2026-03-30 12:38:21,642 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:21,642 [INFO] 
+2026-03-30 12:38:23,143 [INFO] [23/26] LinkedIn        | Lead Developer / Tech Lead Full-Stack (Node.js / R
+2026-03-30 12:38:23,145 [INFO]          Entreprise : Bob! Desk | Lieu : Clichy
+2026-03-30 12:38:23,145 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:23,145 [INFO] 
+2026-03-30 12:38:24,646 [INFO] [24/26] LinkedIn        | ALTERNANCE - Développeur web - F/H
+2026-03-30 12:38:24,646 [INFO]          Entreprise : Thales | Lieu : Rungis
+2026-03-30 12:38:24,646 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:24,646 [INFO] 
+2026-03-30 12:38:26,148 [INFO] [25/26] LinkedIn        | Lead Back-end Developer
+2026-03-30 12:38:26,148 [INFO]          Entreprise : MYM | Lieu : Ville de Paris
+2026-03-30 12:38:26,148 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:26,149 [INFO] 
+2026-03-30 12:38:27,649 [INFO] [26/26] LinkedIn        | Développeur full stack & IA logiciel de paie SaaS 
+2026-03-30 12:38:27,649 [INFO]          Entreprise : Galadrim | Lieu : Paris
+2026-03-30 12:38:27,650 [INFO]          ⛔ Score < 6/10 — ignoré
+2026-03-30 12:38:27,650 [INFO] 
+2026-03-30 12:38:29,153 [INFO] ============================================================
+2026-03-30 12:38:29,153 [INFO] ✅ CYCLE TERMINÉ en 49.6s
+2026-03-30 12:38:29,153 [INFO]    • Analysées : 26
+2026-03-30 12:38:29,154 [INFO]    • Envoyées  : 0
+2026-03-30 12:38:29,154 [INFO]    • Ignorées  : 26 (score trop bas)
+2026-03-30 12:38:29,154 [INFO]    • Prochain cycle dans 120 min
+2026-03-30 12:38:29,154 [INFO] ============================================================
+
