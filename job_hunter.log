@@ -72,3 +72,28 @@
 2026-03-30 11:19:36,366 [INFO]    ➜ Score < 6/10, ignoré
 2026-03-30 11:19:38,200 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
 
+2026-03-30 11:29:39,421 [INFO] 🚀 Job Hunter Bot démarré !
+2026-03-30 11:29:39,422 [INFO] ⏱  Intervalle : toutes les 120 minutes
+2026-03-30 11:29:39,422 [INFO] ============================================================
+2026-03-30 11:29:39,422 [INFO] 🔍 Nouveau cycle — 30/03/2026 11:29
+2026-03-30 11:29:39,422 [INFO] ============================================================
+2026-03-30 11:29:39,692 [INFO]    [FranceTravail] ✅ HTTP 200 — 9 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 11:29:42,006 [INFO]    [FranceTravail] ✅ HTTP 200 — 20 cards trouvées | mot-clé : 'full stack javascript'
+2026-03-30 11:29:44,020 [INFO] [FranceTravail] 29 offres trouvées
+2026-03-30 11:29:45,082 [WARNING]    [Indeed] 🚫 HTTP 403 — Accès bloqué / rate limit | mot-clé : 'développeur fullstack react node' → le site a détecté le bot
+2026-03-30 11:29:47,146 [WARNING]    [Indeed] 🚫 HTTP 403 — Accès bloqué / rate limit | mot-clé : 'full stack javascript' → le site a détecté le bot
+2026-03-30 11:29:49,158 [INFO] [Indeed] 0 offres trouvées
+2026-03-30 11:29:50,261 [WARNING]    [WTTJ] 🚫 API HTTP 404 pour 'développeur fullstack react node' → fallback scraping web
+2026-03-30 11:29:50,477 [WARNING]    [WTTJ-fallback] ⚠️  HTTP 200 — 0 cards trouvées → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:29:50,575 [WARNING]    [WTTJ] 🚫 API HTTP 404 pour 'full stack javascript' → fallback scraping web
+2026-03-30 11:29:50,780 [WARNING]    [WTTJ-fallback] ⚠️  HTTP 200 — 0 cards trouvées → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:29:50,780 [INFO] [WTTJ] 0 offres trouvées
+2026-03-30 11:29:51,937 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'développeur fullstack react node' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:29:54,068 [WARNING]    [HelloWork] ⚠️  HTTP 200 — 0 cards trouvées | mot-clé : 'full stack javascript' → sélecteur CSS peut-être obsolète ou page vide
+2026-03-30 11:29:56,079 [INFO] [HelloWork] 0 offres trouvées
+2026-03-30 11:29:58,178 [INFO]    [LinkedIn] ✅ HTTP 200 — 1 cards trouvées | mot-clé : 'développeur fullstack react node'
+2026-03-30 11:30:01,180 [INFO] [LinkedIn] 1 offres trouvées
+2026-03-30 11:30:02,181 [INFO] Total : 30 offres uniques
+2026-03-30 11:30:02,181 [INFO] 📬 0 nouvelles offres à analyser
+2026-03-30 11:30:02,466 [INFO] ✅ Cycle terminé — 0 offres envoyées sur Discord
+

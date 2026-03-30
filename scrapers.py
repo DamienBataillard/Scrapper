@@ -11,6 +11,26 @@ from config import SEARCH_KEYWORDS, SEARCH_LOCATION
 
 logger = logging.getLogger(__name__)
 
+
+def _log_request(source: str, url: str, status: int, cards: int, keyword: str = ""):
+    """Log standardisé pour chaque requête de scraping."""
+    kw_str = f" | mot-clé : '{keyword}'" if keyword else ""
+    if status == 200 and cards > 0:
+        logger.info(f"   [{source}] ✅ HTTP {status} — {cards} cards trouvées{kw_str}")
+    elif status == 200 and cards == 0:
+        logger.warning(f"   [{source}] ⚠️  HTTP {status} — 0 cards trouvées{kw_str} "
+                       f"→ sélecteur CSS peut-être obsolète ou page vide")
+    elif status in (403, 429):
+        logger.warning(f"   [{source}] 🚫 HTTP {status} — Accès bloqué / rate limit{kw_str} "
+                       f"→ le site a détecté le bot")
+    elif status in (301, 302):
+        logger.warning(f"   [{source}] 🔀 HTTP {status} — Redirection{kw_str} "
+                       f"→ l'URL a peut-être changé")
+    else:
+        logger.warning(f"   [{source}] ❌ HTTP {status}{kw_str} → réponse inattendue")
+    logger.debug(f"   [{source}] URL : {url}")
+
+
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -57,6 +77,7 @@ def fetch_france_travail():
             soup = BeautifulSoup(r.text, "html.parser")
 
             cards = soup.find_all("li", class_="result")
+            _log_request("FranceTravail", r.url, r.status_code, len(cards), keyword)
             for card in cards:
                 try:
                     title_el   = card.find("h2") or card.find("h3")
@@ -105,6 +126,7 @@ def fetch_indeed():
             soup = BeautifulSoup(r.text, "html.parser")
 
             cards = soup.find_all("div", class_="job_seen_beacon")
+            _log_request("Indeed", r.url, r.status_code, len(cards), keyword)
             for card in cards:
                 try:
                     title_el  = card.find("h2", class_="jobTitle")
@@ -161,11 +183,13 @@ def fetch_wttj():
             r = requests.get(url, params=params, headers=headers, timeout=15)
 
             if r.status_code != 200:
-                # Fallback scraping page web
+                logger.warning(f"   [WTTJ] 🚫 API HTTP {r.status_code} pour '{keyword}' → fallback scraping web")
                 _wttj_scrape(keyword, jobs)
                 continue
 
-            for o in r.json().get("jobs", []):
+            api_jobs = r.json().get("jobs", [])
+            _log_request("WTTJ", r.url, r.status_code, len(api_jobs), keyword)
+            for o in api_jobs:
                 contract = ", ".join(
                     [c.get("name", "") for c in o.get("contract_types", [])]
                 )
@@ -196,6 +220,7 @@ def _wttj_scrape(keyword, jobs):
         r = requests.get(url, headers=HEADERS, timeout=15)
         soup = BeautifulSoup(r.text, "html.parser")
         cards = soup.find_all("li", attrs={"data-testid": "search-results-list-item-wrapper"})
+        _log_request("WTTJ-fallback", r.url, r.status_code, len(cards))
         for card in cards:
             title_el = card.find("h3")
             link_el  = card.find("a", href=True)
@@ -227,6 +252,7 @@ def fetch_hellowork():
             soup = BeautifulSoup(r.text, "html.parser")
 
             cards = soup.find_all("article", attrs={"data-id": True})
+            _log_request("HelloWork", r.url, r.status_code, len(cards), keyword)
             for card in cards:
                 try:
                     job_id  = card.get("data-id", "")
@@ -279,6 +305,7 @@ def fetch_linkedin():
             soup = BeautifulSoup(r.text, "html.parser")
 
             cards = soup.find_all("div", class_="base-card")
+            _log_request("LinkedIn", r.url, r.status_code, len(cards), keyword)
             for card in cards:
                 try:
                     title_el = card.find("h3", class_="base-search-card__title")
