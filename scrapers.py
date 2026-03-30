@@ -7,10 +7,7 @@ import time
 import logging
 from datetime import datetime
 from bs4 import BeautifulSoup
-from config import (
-    SEARCH_KEYWORDS, SEARCH_LOCATION,
-    FRANCE_TRAVAIL_CLIENT_ID, FRANCE_TRAVAIL_CLIENT_SECRET
-)
+from config import SEARCH_KEYWORDS, SEARCH_LOCATION
 
 logger = logging.getLogger(__name__)
 
@@ -44,60 +41,44 @@ def make_job(source, job_id, title, company, location, contract,
 
 
 # ─────────────────────────────────────────────
-# 1. FRANCE TRAVAIL (API officielle)
+# 1. FRANCE TRAVAIL (scraping)
 # ─────────────────────────────────────────────
-def _get_france_travail_token():
-    """Obtient un token OAuth2 France Travail."""
-    url = "https://entreprise.francetravail.fr/connexion/oauth2/access_token"
-    params = {"realm": "/partenaire"}
-    data = {
-        "grant_type":    "client_credentials",
-        "client_id":     FRANCE_TRAVAIL_CLIENT_ID,
-        "client_secret": FRANCE_TRAVAIL_CLIENT_SECRET,
-        "scope":         "api_offresdemploiv2 o2dsoffre",
-    }
-    r = requests.post(url, params=params, data=data, timeout=10)
-    r.raise_for_status()
-    return r.json()["access_token"]
-
-
 def fetch_france_travail():
     jobs = []
     try:
-        token = _get_france_travail_token()
-        headers = {"Authorization": f"Bearer {token}"}
-        url = "https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search"
-
         for keyword in SEARCH_KEYWORDS[:2]:
+            url = "https://candidat.francetravail.fr/offres/recherche"
             params = {
-                "motsCles":       keyword,
-                "lieuTravail":    SEARCH_LOCATION,
-                "distance":       50,          # km autour
-                "range":          "0-14",      # 15 résultats
-                "typeContrat":    "CDI,CDD,MIS",
+                "motsCles":  keyword,
+                "ville":     SEARCH_LOCATION,
+                "rayonRecherche": 50,
             }
-            r = requests.get(url, headers=headers, params=params, timeout=15)
-            if r.status_code != 200:
-                continue
+            r = requests.get(url, params=params, headers=HEADERS, timeout=15)
+            soup = BeautifulSoup(r.text, "html.parser")
 
-            for o in r.json().get("resultats", []):
-                salary = "Non précisé"
-                if "salaire" in o:
-                    salary = o["salaire"].get("libelle", "Non précisé")
+            cards = soup.find_all("li", class_="result")
+            for card in cards:
+                try:
+                    title_el   = card.find("h2") or card.find("h3")
+                    title      = title_el.get_text(strip=True) if title_el else ""
+                    company_el = card.find(class_="subTitle") or card.find(class_="entreprise")
+                    company    = company_el.get_text(strip=True) if company_el else "?"
+                    loc_el     = card.find(class_="location") or card.find(attrs={"data-original-title": True})
+                    location   = loc_el.get_text(strip=True) if loc_el else SEARCH_LOCATION
+                    link_el    = card.find("a", href=True)
+                    href       = link_el["href"] if link_el else ""
+                    job_id     = href.split("/")[-1].split("?")[0]
+                    job_url    = f"https://candidat.francetravail.fr{href}" if href.startswith("/") else href
 
-                jobs.append(make_job(
-                    source      = "FranceTravail",
-                    job_id      = o["id"],
-                    title       = o.get("intitule", ""),
-                    company     = o.get("entreprise", {}).get("nom", "Non précisé"),
-                    location    = o.get("lieuTravail", {}).get("libelle", ""),
-                    contract    = o.get("typeContratLibelle", ""),
-                    salary      = salary,
-                    description = o.get("description", ""),
-                    url         = o.get("origineOffre", {}).get("urlOrigine", ""),
-                    published   = o.get("dateCreation", "")[:10],
-                ))
-            time.sleep(1)
+                    if title:
+                        jobs.append(make_job(
+                            source="FranceTravail", job_id=job_id, title=title,
+                            company=company, location=location, contract="",
+                            description=title, url=job_url,
+                        ))
+                except Exception:
+                    continue
+            time.sleep(2)
 
     except Exception as e:
         logger.error(f"[FranceTravail] Erreur : {e}")
