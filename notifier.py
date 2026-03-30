@@ -84,16 +84,34 @@ def send_to_discord(job: dict, analysis: dict) -> bool:
         return False
 
 
-def send_summary(total_checked: int, total_sent: int):
-    """Message récapitulatif après chaque cycle."""
-    payload = {
-        "username": "🤖 Job Hunter",
-        "content": (
-            f"📊 **Cycle terminé** — {datetime.now().strftime('%d/%m/%Y %H:%M')}\n"
-            f"• Offres vérifiées : **{total_checked}**\n"
-            f"• Offres envoyées (score ≥ {MIN_SCORE}/10) : **{total_sent}**"
-        ),
-    }
+def send_summary(total_checked: int, total_sent: int, sent_jobs: list = None):
+    """Message récapitulatif après chaque cycle avec la liste des offres trouvées."""
+
+    if not sent_jobs:
+        content = (
+            f"📭 **Aucune nouvelle offre** — {datetime.now().strftime('%d/%m/%Y %H:%M')}\n"
+            f"• Offres analysées : **{total_checked}** — aucune ne dépasse le score de {MIN_SCORE}/10\n"
+            f"• Prochain cycle dans 2h"
+        )
+    else:
+        lines = [
+            f"📋 **{total_sent} offre(s) trouvée(s)** — {datetime.now().strftime('%d/%m/%Y %H:%M')}\n"
+        ]
+        for job in sent_jobs:
+            score   = job["analysis"]["score"]
+            verdict = job["analysis"].get("verdict", "")
+            lines.append(
+                f"**{job['title']}** — {job['company']} ({job['location']})\n"
+                f"Score : {score}/10 — {verdict}\n"
+                f"🔗 {job['url']}\n"
+            )
+        content = "\n".join(lines)
+
+    # Discord limite les messages à 2000 caractères
+    if len(content) > 2000:
+        content = content[:1950] + "\n_... (tronqué)_"
+
+    payload = {"username": "🤖 Job Hunter", "content": content}
     try:
         requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=10)
     except Exception as e:
