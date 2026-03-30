@@ -1,7 +1,6 @@
 # 🤖 Job Hunter Bot — React.js / Node.js
 
-Bot automatique qui scrape les offres d'emploi, les analyse avec Claude IA
-et t'envoie les meilleures sur Discord.
+Bot automatique qui scrape les offres d'emploi sur **France Travail** et **LinkedIn**, les analyse par filtrage mots-clés et t'envoie les meilleures sur **Discord**.
 
 ---
 
@@ -10,55 +9,57 @@ et t'envoie les meilleures sur Discord.
 ```
 job_hunter/
 ├── main.py           ← Point d'entrée, scheduler
-├── config.py         ← TON PROFIL + clés API  ← à remplir !
-├── scrapers.py       ← France Travail, Indeed, WTTJ, HelloWork, LinkedIn
-├── analyzer.py       ← Analyse IA via Claude
+├── config.py         ← Ton profil + paramètres
+├── scrapers.py       ← France Travail + LinkedIn
+├── analyzer.py       ← Scoring par mots-clés
 ├── notifier.py       ← Envoi Discord
 ├── requirements.txt
+├── .env              ← Tes secrets (non pushé sur Git)
+├── .env.example      ← Template à copier
 └── seen_jobs.json    ← Créé automatiquement (évite les doublons)
 ```
 
 ---
 
-## ⚡ Installation (5 minutes)
+## ⚡ Installation
 
 ### 1. Prérequis
 ```bash
 python --version   # Python 3.10+
 ```
 
-### 2. Cloner & installer
+### 2. Cloner & installer les dépendances
 ```bash
-cd job_hunter
+git clone https://github.com/ton-user/ton-repo.git
+cd ton-repo
 pip install -r requirements.txt
 ```
 
-### 3. Configurer `config.py`
+### 3. Configurer les secrets
 
-#### 🔑 Clé Anthropic (Claude)
-1. Va sur https://console.anthropic.com/
-2. Crée un compte, puis **API Keys > Create Key**
-3. Copie la clé dans `config.py` → `ANTHROPIC_API_KEY`
-> 💡 Coût estimé : ~0.003€ par offre analysée (très peu cher)
+Copie le fichier `.env.example` en `.env` :
+```bash
+cp .env.example .env
+```
 
-#### 🎮 Webhook Discord
+Puis remplis ton webhook Discord dans `.env` :
+```
+DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/XXXXX/XXXXX
+```
+
+#### Obtenir un webhook Discord
 1. Ouvre ton serveur Discord
 2. Paramètres du canal → **Intégrations → Webhooks → Nouveau webhook**
-3. Copie l'URL dans `config.py` → `DISCORD_WEBHOOK_URL`
+3. Copie l'URL dans le fichier `.env`
 
-#### 🇫🇷 API France Travail (gratuit)
-1. Va sur https://francetravail.io/data/api/offres-emploi
-2. Clique **"S'abonner"** (compte gratuit)
-3. Récupère `client_id` et `client_secret`
-4. Remplis `FRANCE_TRAVAIL_CLIENT_ID` et `FRANCE_TRAVAIL_CLIENT_SECRET`
+### 4. Configurer ton profil
 
-#### 👤 Ton profil
-Dans `config.py`, modifie la section `PROFILE` :
+Dans `config.py`, adapte la section `PROFILE` à ton profil :
 ```python
 PROFILE = {
-    "experience_years": 3,     # ← tes années d'expérience
+    "experience_years": 3,
     "locations": ["Amiens", "Télétravail"],
-    "min_salary": 38000,       # ← ton salaire minimum
+    "min_salary": 38000,
     ...
 }
 ```
@@ -71,80 +72,80 @@ PROFILE = {
 python main.py
 ```
 
-Le bot tourne en boucle. Pour l'arrêter : `Ctrl+C`
+Le bot tourne en boucle et vérifie les nouvelles offres toutes les 2h. Pour l'arrêter : `Ctrl+C`
 
 ---
 
-## ⏰ Lancement automatique au démarrage
+## 🐳 Lancement avec Docker
 
-### Linux / Mac (crontab)
 ```bash
-crontab -e
-# Ajouter cette ligne (relance si le bot s'arrête) :
-@reboot cd /chemin/vers/job_hunter && python main.py >> job_hunter.log 2>&1 &
+docker compose up -d          # démarre en arrière-plan
+docker compose logs -f        # voir les logs en direct
+docker compose stop           # arrêter
 ```
 
-### Windows (Task Scheduler)
-1. Cherche "Planificateur de tâches" dans le menu Démarrer
-2. Créer une tâche de base → "Au démarrage"
-3. Action : `python C:\chemin\vers\job_hunter\main.py`
+Le container redémarre automatiquement si le script plante ou si le PC redémarre (`restart: unless-stopped`).
+
+---
+
+## 🐛 Mode debug
+
+Pour inspecter le HTML retourné par les sites et corriger les sélecteurs :
+
+```bash
+# Windows PowerShell
+$env:DEBUG_HTML="true"; python main.py
+
+# Mac / Linux
+DEBUG_HTML=true python main.py
+```
+
+Les fichiers HTML sont sauvegardés dans `debug_html/`.
 
 ---
 
 ## 📊 Exemple de notification Discord
 
 ```
-🌴 Développeur Full Stack React/Node.js
+🇫🇷 Développeur Full Stack React/Node.js
 ✅ Bon match — Score : 8/10
 
-_Poste adapté à ton profil, technologies identiques,
-télétravail possible_
+Score calculé sur 3 technologie(s) clé(s) détectée(s)
+
+🔗 Voir l'annonce
+https://candidat.francetravail.fr/offres/emploi/...
 
 🏢 Entreprise : Acme Corp
 📍 Lieu : Amiens (80)
 📄 Contrat : CDI
-💰 Salaire : 40 000 - 45 000 €/an
 
 👍 Points positifs
-✅ React.js et Node.js requis
-✅ Télétravail partiel proposé
-✅ Expérience 2-4 ans demandée
-
-⚠️ Points à noter
-⚠️ Déplacements occasionnels possibles
+✅ React.js mentionné
+✅ Node.js mentionné
+✅ Typescript mentionné
 ```
 
 ---
 
 ## ⚙️ Personnalisation
 
-| Paramètre        | Où                | Défaut | Effet                              |
-|------------------|-------------------|--------|------------------------------------|
-| `MIN_SCORE`      | `config.py`       | 6      | Score mini pour notifier (0-10)    |
-| `CHECK_INTERVAL` | `config.py`       | 120    | Minutes entre chaque cycle         |
-| `SEARCH_KEYWORDS`| `config.py`       | …      | Mots-clés de recherche             |
-| `SEARCH_LOCATION`| `config.py`       | Amiens | Ville de recherche                 |
+| Paramètre         | Fichier     | Défaut | Description                     |
+|-------------------|-------------|--------|---------------------------------|
+| `MIN_SCORE`       | `config.py` | 6      | Score minimum pour notifier     |
+| `CHECK_INTERVAL`  | `config.py` | 120    | Minutes entre chaque cycle      |
+| `SEARCH_KEYWORDS` | `config.py` | …      | Mots-clés de recherche          |
+| `SEARCH_LOCATION` | `config.py` | Amiens | Ville / région de recherche     |
 
 ---
 
-## ⚠️ Notes importantes
+## ⚠️ Notes
 
-- **LinkedIn** : anti-scraping très agressif, les résultats peuvent être limités.
-  Active les alertes email LinkedIn en parallèle comme backup.
-- **Indeed** : structure HTML qui peut changer. Si plus de résultats, ouvre un
-  ticket ou adapte les sélecteurs dans `scrapers.py`.
-- Le fichier `seen_jobs.json` grandit avec le temps. Tu peux le vider pour
-  ré-analyser toutes les offres actuelles.
+- **LinkedIn** : résultats limités à cause de l'anti-scraping. Active les alertes email LinkedIn en parallèle.
+- **`seen_jobs.json`** : grandit avec le temps. Supprime-le pour ré-analyser toutes les offres depuis zéro.
+- **Secrets** : ne commite jamais le fichier `.env` — il est dans le `.gitignore`.
 
 ---
 
-## 💰 Coûts estimés
+## 💰 Coût
 
-| Élément         | Coût               |
-|-----------------|--------------------|
-| Claude API      | ~0.003€/offre      |
-| France Travail  | Gratuit            |
-| Discord Webhook | Gratuit            |
-| Indeed / WTTJ   | Gratuit (scraping) |
-
-Pour 20 nouvelles offres/jour → **~2€/mois** max.
+**100% gratuit** — aucune API payante requise.
