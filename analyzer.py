@@ -13,30 +13,20 @@ logger = logging.getLogger(__name__)
 KEYWORDS_POSITIVE = {
     # Stack principale (poids fort)
     "react":        3,
-    "react.js":     3,
-    "reactjs":      3,
-    "node":         3,
-    "node.js":      3,
-    "nodejs":       3,
     "javascript":   2,
     "typescript":   2,
-    "js":           1,
-    "ts":           1,
     "mysql":        3,
     "git":          2,
     # Stack secondaire
     "express":      2,
     "next.js":      2,
-    "nextjs":       2,
     "mongodb":      1,
     "postgresql":   1,
     "rest api":     1,
     "api rest":     1,
     "docker":       1,
     # Type de poste
-    "fullstack":    3,
     "full stack":   3,
-    "full-stack":   3,
     "frontend":     3,
     "backend":      3,
     "développeur":  3,
@@ -44,18 +34,13 @@ KEYWORDS_POSITIVE = {
     "engineer":     3,
     # Remote / conditions
     "télétravail":  1,
-    "teletravail":  1,
     "remote":       1,
     "hybride":      1,
 }
 
-# ─────────────────────────────────────────────────────────────
-# Mots-clés négatifs — présence = pénalité
-# ─────────────────────────────────────────────────────────────
 KEYWORDS_NEGATIVE = {
     "10 ans":           4,
     "15 ans":           5,
-    "java ":            2,    # espace pour ne pas bloquer "javascript"
     "php":              2,
     ".net":             2,
     "c#":               2,
@@ -63,40 +48,72 @@ KEYWORDS_NEGATIVE = {
     "lead technique":   2,
     "architecte":       2,
     "devops":           1,
-    "stage":            3,    # si tu ne veux pas de stage
+}
+
+# Variantes groupées — un seul point accordé par groupe
+KEYWORD_GROUPS = [
+    (["react", "react.js", "reactjs"], 3),
+    (["node", "node.js", "nodejs"], 3),
+    (["fullstack", "full stack", "full-stack"], 3),
+    (["teletravail", "télétravail"], 1),
+]
+
+# Mots-clés négatifs avec regex pour éviter les faux positifs
+import re
+KEYWORDS_NEGATIVE_REGEX = {
+    r"\bjava\b":    2,
+    r"\bstage\b(?!.*étape)":   3,
 }
 
 
 def analyze_job(job: dict) -> dict | None:
-    """
-    Analyse une offre par mots-clés.
-    Retourne un dict d'analyse si score >= MIN_SCORE, sinon None.
-    """
     text = (
         job.get("title", "") + " " +
         job.get("description", "") + " " +
         job.get("company", "")
     ).lower()
 
-    # ── Calcul du score ──────────────────────────────────────
+        # Rejet immédiat si un mot-clé exclu est présent
+    for excl in PROFILE.get("excluded_keywords", []):
+        if excl.lower() in text:
+            logger.debug(f"Offre rejetée (mot-clé exclu : '{excl}') : {job['title']}")
+            return None
+
     raw_score    = 0
     max_possible = sum(v for v in KEYWORDS_POSITIVE.values() if v >= 2)
+    # Ajouter les groupes au max_possible
+    max_possible += sum(w for _, w in KEYWORD_GROUPS if w >= 2)
 
     points_positifs = []
     points_negatifs = []
 
+    # Mots-clés simples
     for kw, weight in KEYWORDS_POSITIVE.items():
         if kw in text:
             raw_score += weight
             if weight >= 2:
                 points_positifs.append(f"{kw.capitalize()} mentionné")
 
+    # Groupes de variantes — un seul point par groupe
+    for variants, weight in KEYWORD_GROUPS:
+        if any(v in text for v in variants):
+            raw_score += weight
+            if weight >= 2:
+                points_positifs.append(f"{variants[0].capitalize()} mentionné")
+
+    # Mots-clés négatifs simples
     for kw, penalty in KEYWORDS_NEGATIVE.items():
         if kw in text:
             raw_score -= penalty
             points_negatifs.append(f"{kw.strip().capitalize()} détecté")
 
-    # ── Bonus contrat / lieu ─────────────────────────────────
+    # Mots-clés négatifs regex
+    for pattern, penalty in KEYWORDS_NEGATIVE_REGEX.items():
+        if re.search(pattern, text):
+            raw_score -= penalty
+            points_negatifs.append(f"{pattern.strip('\\b').capitalize()} détecté")
+
+    # Bonus contrat / lieu
     location_text = job.get("location", "").lower()
     for loc in PROFILE.get("locations", []):
         if loc.lower() in location_text:
@@ -109,14 +126,13 @@ def analyze_job(job: dict) -> dict | None:
             raw_score += 1
             break
 
-    # ── Normalisation sur 10 ────────────────────────────────
+    # Normalisation sur 10
     score = round(max(0, min(10, (raw_score / max(max_possible, 1)) * 10)))
 
     if score < MIN_SCORE:
         logger.debug(f"Score trop bas ({score}/10) : {job['title']}")
         return None
 
-    # ── Verdict ──────────────────────────────────────────────
     if score >= 9:   verdict = "Excellent match"
     elif score >= 7: verdict = "Bon match"
     elif score >= 5: verdict = "Match partiel"

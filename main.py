@@ -106,38 +106,39 @@ def run_cycle():
     total_sent = 0
     sent_jobs  = []
 
-    for i, job in enumerate(new_jobs, 1):
-        seen.add(job["id"])
+    try:
+        for i, job in enumerate(new_jobs, 1):
+            seen.add(job["id"])
 
-        logger.info(f"[{i}/{len(new_jobs)}] {job['source']:<15} | {job['title'][:50]}")
-        logger.info(f"         Entreprise : {job['company']} | Lieu : {job['location']}")
+            logger.info(f"[{i}/{len(new_jobs)}] {job['source']:<15} | {job['title'][:50]}")
+            logger.info(f"         Entreprise : {job['company']} | Lieu : {job['location']}")
 
-        analysis = analyze_job(job)
+            analysis = analyze_job(job)
 
-        if analysis:
-            score   = analysis["score"]
-            verdict = analysis.get("verdict", "")
-            pos     = ", ".join(analysis.get("points_positifs", []))
-            neg     = ", ".join(analysis.get("points_negatifs", [])) or "aucun"
+            if analysis:
+                score   = analysis["score"]
+                verdict = analysis.get("verdict", "")
+                pos     = ", ".join(analysis.get("points_positifs", []))
+                neg     = ", ".join(analysis.get("points_negatifs", [])) or "aucun"
 
-            logger.info(f"         ✅ Score : {score}/10 — {verdict}")
-            logger.info(f"         👍 Positifs : {pos}")
-            logger.info(f"         ⚠️  Négatifs : {neg}")
+                logger.info(f"         ✅ Score : {score}/10 — {verdict}")
+                logger.info(f"         👍 Positifs : {pos}")
+                logger.info(f"         ⚠️  Négatifs : {neg}")
 
-            sent = send_to_discord(job, analysis)
-            if sent:
-                total_sent += 1
-                sent_jobs.append({**job, "analysis": analysis})
-                logger.info(f"         📨 Envoyé sur Discord ✓")
-        else:
-            logger.info(f"         ⛔ Score < {MIN_SCORE}/10 — ignoré")
+                sent = send_to_discord(job, analysis)
+                if sent:
+                    total_sent += 1
+                    sent_jobs.append({**job, "analysis": analysis})
+                    logger.info(f"         📨 Envoyé sur Discord ✓")
+            else:
+                logger.info(f"         ⛔ Score < {MIN_SCORE}/10 — ignoré")
 
-        logger.info("")
-        time.sleep(1.5)
+            logger.info("")
+    finally:
+        save_seen(seen)
 
     # ── Bilan ────────────────────────────────────────────────
     elapsed = round(time.time() - start_time, 1)
-    save_seen(seen)
     save_annonces(new_jobs)
 
     logger.info("=" * 60)
@@ -149,6 +150,7 @@ def run_cycle():
     logger.info("=" * 60 + "\n")
 
     send_summary(total_checked=len(new_jobs), total_sent=total_sent, sent_jobs=sent_jobs)
+
 
 
 # ── Lancement ─────────────────────────────────────────────────────────────────
