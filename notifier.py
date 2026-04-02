@@ -91,7 +91,6 @@ def send_summary(total_checked: int, total_sent: int, sent_jobs: list = None):
         content = (
             f"📭 **Aucune nouvelle offre** — {datetime.now().strftime('%d/%m/%Y %H:%M')}\n"
             f"• Offres analysées : **{total_checked}** — aucune ne dépasse le score de {MIN_SCORE}/10\n"
-            f"• Prochain cycle dans 2h"
         )
     else:
         lines = [

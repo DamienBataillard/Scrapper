@@ -162,13 +162,8 @@ if __name__ == "__main__":
     logger.info(f"📍 Lieu      : {SEARCH_LOCATIONS}")
     logger.info(f"🔑 Mots-clés : {', '.join(SEARCH_KEYWORDS)}")
     logger.info(f"⭐ Score min : {MIN_SCORE}/10")
-    logger.info(f"⏱  Intervalle: toutes les {CHECK_INTERVAL} min")
     logger.info("=" * 60 + "\n")
 
     run_cycle()
 
-    schedule.every(CHECK_INTERVAL).minutes.do(run_cycle)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(30)
+    logger.info("✅ Cycle terminé — arrêt du script.")

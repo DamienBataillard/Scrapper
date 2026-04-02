@@ -3,6 +3,7 @@ analyzer.py — Analyse des offres par filtrage mots-clés (sans API IA)
 """
 
 import logging
+import re
 from config import PROFILE, MIN_SCORE
 
 logger = logging.getLogger(__name__)
@@ -59,7 +60,6 @@ KEYWORD_GROUPS = [
 ]
 
 # Mots-clés négatifs avec regex pour éviter les faux positifs
-import re
 KEYWORDS_NEGATIVE_REGEX = {
     r"\bjava\b":    2,
     r"\bstage\b(?!.*étape)":   3,
