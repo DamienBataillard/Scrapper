@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Job Hunter Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0f0f1a; color: #ecf0f1; padding: 30px 20px; }
+  h1 { font-size: 26px; margin-bottom: 6px; }
+  .subtitle { color: #888; font-size: 13px; margin-bottom: 28px; }
+  .stat-card {
+    background: #1a1a2e; border-radius: 12px; padding: 20px 28px;
+    text-align: center; min-width: 130px; flex: 1;
+  }
+  .stat-num { font-size: 36px; font-weight: bold; color: #3498db; }
+  .stat-label { font-size: 13px; color: #aaa; margin-top: 4px; }
+  .card {
+    background: #1a1a2e; border-radius: 12px; padding: 20px;
+    margin-bottom: 16px; transition: transform 0.15s;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .source-tag { font-size: 12px; background: #2c3e50; padding: 2px 8px; border-radius: 8px; color: #bbb; }
+  input[type=text] {
+    width: 100%; padding: 10px 16px; border-radius: 8px; border: 1px solid #2c3e50;
+    background: #1a1a2e; color: #ecf0f1; font-size: 14px; margin-bottom: 20px; outline: none;
+  }
+  input[type=text]:focus { border-color: #3498db; }
+  .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .filter-btn {
+    background: #2c3e50; color: #ecf0f1; border: none; padding: 6px 14px;
+    border-radius: 20px; cursor: pointer; font-size: 13px;
+  }
+  .filter-btn.active { background: #3498db; }
+</style>
+</head>
+<body>
+
+<h1>🤖 Job Hunter Dashboard</h1>
+<p class="subtitle">Dernière mise à jour : 27/04/2026 à 11:00</p>
+
+<p style='color:#888'>Aucune offre enregistrée pour le moment.</p>
+
+<input type="text" id="search" placeholder="🔍 Rechercher par titre, entreprise, lieu..." onkeyup="filterCards()">
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterSource('all', this)">Toutes</button>
+  <button class="filter-btn" onclick="filterSource('FranceTravail', this)">🇫🇷 France Travail</button>
+  <button class="filter-btn" onclick="filterSource('LinkedIn', this)">💼 LinkedIn</button>
+  <button class="filter-btn" onclick="filterSource('WTTJ', this)">🌴 WTTJ</button>
+</div>
+
+<div id="cards-container">
+
+</div>
+
+<script>
+let currentSource = 'all';
+
+function filterCards() {
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c => {
+    const text = c.innerText.toLowerCase();
+    const src  = c.querySelector('.source-tag') ? c.querySelector('.source-tag').innerText : '';
+    const matchSearch = text.includes(q);
+    const matchSource = currentSource === 'all' || src.includes(currentSource);
+    c.style.display = (matchSearch && matchSource) ? '' : 'none';
+  });
+}
+
+function filterSource(source, btn) {
+  currentSource = source;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterCards();
+}
+</script>
+
+</body>
+</html>

@@ -7,7 +7,7 @@ import json
 import logging
 import time
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import schedule
 
@@ -15,6 +15,7 @@ from config import CHECK_INTERVAL, SEEN_JOBS_FILE, MIN_SCORE, PROFILE, SEARCH_KE
 from scrapers import fetch_all_jobs
 from analyzer import analyze_job
 from notifier import send_to_discord, send_summary
+from dashboard import save_to_history, generate_dashboard
 
 # ── Logging ──────────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -29,20 +30,42 @@ logger = logging.getLogger(__name__)
 
 
 # ── Gestion des offres déjà vues ──────────────────────────────────────────────
+_seen_dates: dict = {}
+
 def load_seen() -> set:
-    if os.path.exists(SEEN_JOBS_FILE):
-        with open(SEEN_JOBS_FILE, "r") as f:
-            data = json.load(f)
-            logger.debug(f"[Mémoire] {len(data)} offres déjà vues chargées")
-            return set(data)
-    logger.debug("[Mémoire] Aucun fichier seen_jobs.json, démarrage à zéro")
-    return set()
+    global _seen_dates
+    if not os.path.exists(SEEN_JOBS_FILE):
+        return set()
+    with open(SEEN_JOBS_FILE, "r") as f:
+        data = json.load(f)
+
+    # Migration ancien format (liste) → nouveau format (dict avec dates)
+    if isinstance(data, list):
+        _seen_dates = {job_id: "2000-01-01" for job_id in data}
+    else:
+        _seen_dates = data
+
+    cutoff = (datetime.now() - timedelta(days=30)).strftime("%Y-%m-%d")
+    valid   = {k: v for k, v in _seen_dates.items() if v >= cutoff}
+    removed = len(_seen_dates) - len(valid)
+    _seen_dates = valid
+
+    if removed > 0:
+        logger.info(f"[Mémoire] {removed} offres expirées supprimées (> 30 jours)")
+    logger.debug(f"[Mémoire] {len(_seen_dates)} offres déjà vues chargées")
+    return set(_seen_dates.keys())
 
 
 def save_seen(seen: set):
+    global _seen_dates
+    today = datetime.now().strftime("%Y-%m-%d")
+    for job_id in seen:
+        if job_id not in _seen_dates:
+            _seen_dates[job_id] = today
+    _seen_dates = {k: v for k, v in _seen_dates.items() if k in seen}
     with open(SEEN_JOBS_FILE, "w") as f:
-        json.dump(list(seen), f)
-    logger.debug(f"[Mémoire] {len(seen)} offres sauvegardées dans {SEEN_JOBS_FILE}")
+        json.dump(_seen_dates, f, indent=2)
+    logger.debug(f"[Mémoire] {len(_seen_dates)} offres sauvegardées dans {SEEN_JOBS_FILE}")
 
 
 ANNONCES_FILE = "annonces.md"
@@ -140,6 +163,18 @@ def run_cycle():
     # ── Bilan ────────────────────────────────────────────────
     elapsed = round(time.time() - start_time, 1)
     save_annonces(new_jobs)
+
+    all_entries = []
+    for job in new_jobs:
+        entry = {**job}
+        matched = next((j for j in sent_jobs if j["id"] == job["id"]), None)
+        if matched:
+            entry["analysis"] = matched["analysis"]
+        all_entries.append(entry)
+
+    save_to_history(all_entries)
+    generate_dashboard()
+    logger.info("📊 Dashboard mis à jour → dashboard.html")
 
     logger.info("=" * 60)
     logger.info(f"✅ CYCLE TERMINÉ en {elapsed}s")
