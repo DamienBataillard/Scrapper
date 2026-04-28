@@ -91,7 +91,7 @@ def generate_dashboard():
             border_color = score_color(score) if score else "#555"
 
             cards.append(f"""
-            <div class="card" style="border-left:4px solid {border_color};">
+            <div class="card" style="border-left:4px solid {border_color};" data-score="{score}" data-date="{job.get('saved_at','')}" data-source="{job['source']}">
                 <div class="card-header">
                     <div>
                         <span class="source-tag">{source_emoji(job['source'])} {job['source']}</span>
@@ -177,27 +177,80 @@ def generate_dashboard():
   <button class="filter-btn" onclick="filterSource('WTTJ', this)">🌴 WTTJ</button>
 </div>
 
+<div class="filter-bar">
+  <span style="color:#aaa;font-size:13px;align-self:center;">⭐ Score :</span>
+  <button class="filter-btn score-btn active" onclick="filterScore(0, this)">Tous</button>
+  <button class="filter-btn score-btn" onclick="filterScore(5, this)">5+</button>
+  <button class="filter-btn score-btn" onclick="filterScore(7, this)">7+</button>
+  <button class="filter-btn score-btn" onclick="filterScore(9, this)">9+</button>
+</div>
+
+<div class="filter-bar">
+  <span style="color:#aaa;font-size:13px;align-self:center;">📅 Date :</span>
+  <button class="filter-btn date-btn active" onclick="filterDate('all', this)">Tout</button>
+  <button class="filter-btn date-btn" onclick="filterDate('today', this)">Aujourd'hui</button>
+  <button class="filter-btn date-btn" onclick="filterDate('week', this)">Cette semaine</button>
+</div>
+
 <div id="cards-container">
 {cards_html}
 </div>
 
 <script>
 let currentSource = 'all';
+let currentScore  = 0;
+let currentDate   = 'all';
 
 function filterCards() {{
-  const q = document.getElementById('search').value.toLowerCase();
+  const q   = document.getElementById('search').value.toLowerCase();
+  const now = new Date();
+
   document.querySelectorAll('.card').forEach(c => {{
-    const text = c.innerText.toLowerCase();
-    const src  = c.querySelector('.source-tag') ? c.querySelector('.source-tag').innerText : '';
+    const text  = c.innerText.toLowerCase();
+    const src   = c.dataset.source || '';
+    const score = parseInt(c.dataset.score) || 0;
+    const dateStr = c.dataset.date || '';
+
+    // Filtre texte
     const matchSearch = text.includes(q);
-    const matchSource = currentSource === 'all' || src.includes(currentSource);
-    c.style.display = (matchSearch && matchSource) ? '' : 'none';
+
+    // Filtre source
+    const matchSource = currentSource === 'all' || src === currentSource;
+
+    // Filtre score
+    const matchScore = score >= currentScore;
+
+    // Filtre date (format: "DD/MM/YYYY HH:MM")
+    let matchDate = true;
+    if (currentDate !== 'all' && dateStr) {{
+      const parts = dateStr.split(/[/ :]/);
+      const cardDate = new Date(parts[2], parts[1]-1, parts[0]);
+      const diffDays = (now - cardDate) / (1000 * 60 * 60 * 24);
+      if (currentDate === 'today') matchDate = diffDays < 1;
+      if (currentDate === 'week')  matchDate = diffDays < 7;
+    }}
+
+    c.style.display = (matchSearch && matchSource && matchScore && matchDate) ? '' : 'none';
   }});
 }}
 
 function filterSource(source, btn) {{
   currentSource = source;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn:not(.score-btn):not(.date-btn)').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterCards();
+}}
+
+function filterScore(min, btn) {{
+  currentScore = min;
+  document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterCards();
+}}
+
+function filterDate(period, btn) {{
+  currentDate = period;
+  document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   filterCards();
 }}
