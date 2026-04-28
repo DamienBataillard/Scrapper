@@ -7,6 +7,8 @@ import json
 import logging
 import time
 import os
+import webbrowser
+import pathlib
 from datetime import datetime, timedelta
 
 import schedule
@@ -200,5 +202,9 @@ if __name__ == "__main__":
     logger.info("=" * 60 + "\n")
 
     run_cycle()
+
+    dashboard_path = pathlib.Path("dashboard.html").resolve()
+    webbrowser.open(dashboard_path.as_uri())
+    logger.info("🌐 Dashboard ouvert dans le navigateur")
 
     logger.info("✅ Cycle terminé — arrêt du script.")
